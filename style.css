@@ -8,29 +8,32 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: #f8fafc;
     min-height: 100vh;
-    padding: 40px 20px;
+    min-height: 100dvh;
+    padding: 20px 16px;
     color: #1a202c;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .container {
-    max-width: 480px;
+    max-width: 420px;
     margin: 0 auto;
     background: white;
-    border-radius: 16px;
+    border-radius: 20px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     overflow: hidden;
 }
 
 header {
-    padding: 32px 32px 24px;
+    padding: 28px 24px 20px;
     text-align: center;
     border-bottom: 1px solid #e2e8f0;
 }
 
 h1 {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 700;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     color: #1a202c;
     letter-spacing: -0.025em;
 }
@@ -38,22 +41,24 @@ h1 {
 .mode-switch {
     display: flex;
     background: #f1f5f9;
-    border-radius: 8px;
-    padding: 4px;
-    gap: 2px;
+    border-radius: 12px;
+    padding: 6px;
+    gap: 4px;
 }
 
 .mode-btn {
     flex: 1;
-    padding: 8px 16px;
+    padding: 14px 20px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     background: transparent;
     color: #64748b;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
+    touch-action: manipulation;
+    min-height: 44px;
 }
 
 .mode-btn.active {
@@ -67,7 +72,7 @@ h1 {
 }
 
 main {
-    padding: 32px;
+    padding: 24px;
 }
 
 .mode-content {
@@ -79,27 +84,30 @@ main {
 }
 
 .input-section {
-    margin-bottom: 32px;
+    margin-bottom: 28px;
 }
 
 label {
     display: block;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     color: #374151;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 input {
     width: 100%;
-    padding: 12px 16px;
+    padding: 16px 20px;
     border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 12px;
+    font-size: 18px;
     font-weight: 400;
     transition: all 0.2s ease;
     background: white;
     color: #1f2937;
+    min-height: 56px;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 input:focus {
@@ -115,13 +123,13 @@ input::placeholder {
 .result-card {
     background: #f8fafc;
     border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 24px;
+    border-radius: 16px;
+    padding: 24px 20px;
     text-align: center;
 }
 
 .result-card h3 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     margin-bottom: 20px;
     color: #374151;
@@ -130,7 +138,7 @@ input::placeholder {
 .date-display {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 }
 
 .date-item {
@@ -138,13 +146,14 @@ input::placeholder {
     justify-content: space-between;
     align-items: center;
     background: white;
-    padding: 16px 20px;
-    border-radius: 8px;
+    padding: 18px 20px;
+    border-radius: 12px;
     border: 1px solid #e5e7eb;
+    min-height: 60px;
 }
 
 .date-item .label {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     color: #6b7280;
     text-transform: uppercase;
@@ -152,7 +161,7 @@ input::placeholder {
 }
 
 .date-value {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 600;
     color: #1f2937;
 }
@@ -170,13 +179,13 @@ input::placeholder {
 }
 
 .days-item .label {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     color: #6b7280;
 }
 
 .days-value {
-    font-size: 48px;
+    font-size: 52px;
     font-weight: 800;
     line-height: 1;
     color: #059669;
@@ -185,44 +194,110 @@ input::placeholder {
 
 .target-date {
     background: white;
-    padding: 16px 20px;
-    border-radius: 8px;
+    padding: 18px 20px;
+    border-radius: 12px;
     border: 1px solid #e5e7eb;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .target-date-value {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     color: #374151;
 }
 
-@media (max-width: 640px) {
+/* iPhone 16 Pro Max 最適化 */
+@media (max-width: 430px) {
     body {
-        padding: 20px 16px;
+        padding: 12px 12px 20px;
     }
     
     .container {
-        border-radius: 12px;
+        border-radius: 20px;
+        max-width: 100%;
     }
     
     header {
-        padding: 24px 24px 20px;
+        padding: 24px 20px 18px;
     }
     
     h1 {
-        font-size: 20px;
-        margin-bottom: 20px;
+        font-size: 24px;
+        margin-bottom: 18px;
+    }
+    
+    .mode-switch {
+        padding: 4px;
+        gap: 2px;
+    }
+    
+    .mode-btn {
+        padding: 12px 16px;
+        font-size: 15px;
+        min-height: 48px;
     }
     
     main {
-        padding: 24px;
-    }
-    
-    .result-card {
         padding: 20px;
     }
     
+    .input-section {
+        margin-bottom: 24px;
+    }
+    
+    label {
+        font-size: 15px;
+        margin-bottom: 8px;
+    }
+    
+    input {
+        padding: 14px 18px;
+        font-size: 17px;
+        min-height: 52px;
+    }
+    
+    .result-card {
+        padding: 20px 16px;
+    }
+    
+    .result-card h3 {
+        font-size: 17px;
+        margin-bottom: 18px;
+    }
+    
+    .date-item {
+        padding: 16px 18px;
+        min-height: 56px;
+    }
+    
+    .date-value {
+        font-size: 16px;
+    }
+    
     .days-value {
-        font-size: 40px;
+        font-size: 46px;
+    }
+    
+    .target-date {
+        padding: 16px 18px;
+        min-height: 52px;
+    }
+    
+    .target-date-value {
+        font-size: 15px;
+    }
+}
+
+/* 大画面での追加最適化 */
+@media (min-width: 431px) and (max-width: 768px) {
+    body {
+        padding: 30px 20px;
+    }
+    
+    .container {
+        max-width: 400px;
     }
 }
