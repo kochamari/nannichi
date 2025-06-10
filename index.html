@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日付計算アプリ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>日付計算アプリ</h1>
+            <div class="mode-switch">
+                <button id="mode1-btn" class="mode-btn active">日数から日付</button>
+                <button id="mode2-btn" class="mode-btn">日付から日数</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- モード1: 日数入力 → 未来の日付表示 -->
+            <div id="mode1" class="mode-content active">
+                <div class="input-section">
+                    <label for="days-input">何日後？</label>
+                    <input type="number" id="days-input" placeholder="例: 30" min="0">
+                </div>
+                <div class="result-section">
+                    <div class="result-card">
+                        <h3>計算結果</h3>
+                        <div class="date-display">
+                            <div class="date-item">
+                                <span class="label">西暦</span>
+                                <span id="western-date" class="date-value">-</span>
+                            </div>
+                            <div class="date-item">
+                                <span class="label">和暦</span>
+                                <span id="japanese-date" class="date-value">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- モード2: 日付入力 → 日数計算 -->
+            <div id="mode2" class="mode-content">
+                <div class="input-section">
+                    <label for="date-input">日付（MMDD形式）</label>
+                    <input type="text" id="date-input" placeholder="例: 0530, 1225" maxlength="4">
+                </div>
+                <div class="result-section">
+                    <div class="result-card">
+                        <h3>計算結果</h3>
+                        <div class="days-display">
+                            <div class="days-item">
+                                <span class="label">あと</span>
+                                <span id="days-result" class="days-value">-</span>
+                                <span class="label">日</span>
+                            </div>
+                            <div class="target-date">
+                                <span id="target-date-display" class="target-date-value">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
