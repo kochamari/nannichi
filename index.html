@@ -13,6 +13,7 @@
             <div class="mode-switch">
                 <button id="mode1-btn" class="mode-btn active">日数から日付</button>
                 <button id="mode2-btn" class="mode-btn">日付から日数</button>
+                <button id="mode3-btn" class="mode-btn">日付間の日数</button>
             </div>
         </header>
 
@@ -57,6 +58,36 @@
                             </div>
                             <div class="target-date">
                                 <span id="target-date-display" class="target-date-value">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- モード3: 日付間の日数計算 -->
+            <div id="mode3" class="mode-content">
+                <div class="input-section date-range">
+                    <div class="date-input-group">
+                        <label for="start-date-input">開始日（MMDD形式）</label>
+                        <input type="text" id="start-date-input" placeholder="例: 0501" maxlength="4">
+                    </div>
+                    <div class="date-separator">→</div>
+                    <div class="date-input-group">
+                        <label for="end-date-input">終了日（MMDD形式）</label>
+                        <input type="text" id="end-date-input" placeholder="例: 0601" maxlength="4">
+                    </div>
+                </div>
+                <div class="result-section">
+                    <div class="result-card">
+                        <h3>計算結果</h3>
+                        <div class="days-between-display">
+                            <div class="days-item">
+                                <span class="label">期間</span>
+                                <span id="days-between-result" class="days-value">-</span>
+                                <span class="label">日</span>
+                            </div>
+                            <div class="date-range-display">
+                                <span id="date-range-display" class="date-range-value">-</span>
                             </div>
                         </div>
                     </div>
