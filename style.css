@@ -191,6 +191,8 @@ input::placeholder {
 /* iOS Safariで日付の値が中央寄せになることがあるため左寄せを明示 */
 input[type="date"] {
     display: block;
+    inline-size: 100%;
+    max-inline-size: 100%;
     text-align: left;
 }
 
@@ -348,23 +350,26 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .date-range {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-    align-items: end;
-    gap: 10px;
-}
-
-.date-input-group {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+    width: 100%;
     min-width: 0;
 }
 
+.date-input-group {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
 .date-input-group input {
+    width: 100%;
+    max-width: 100%;
     font-size: 16px;
 }
 
 .date-separator {
-    padding-bottom: 18px;
-    color: var(--muted);
-    font-size: 18px;
+    display: none;
 }
 
 @media (max-width: 520px) {
@@ -400,15 +405,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     .date-value {
         font-size: 15px;
-    }
-
-    .date-range {
-        grid-template-columns: 1fr;
-        gap: 13px;
-    }
-
-    .date-separator {
-        display: none;
     }
 
     input[type="date"] {
