@@ -4,7 +4,6 @@ class DateCalculator {
         this.initializeElements();
         this.bindEvents();
         this.setTodayAsBaseDate();
-        this.setTodayAsTargetDate();
         this.setTodayAsDateRange();
         this.setActiveMode('mode1');
     }
@@ -12,22 +11,16 @@ class DateCalculator {
     initializeElements() {
         this.mode1Btn = document.getElementById('mode1-btn');
         this.mode2Btn = document.getElementById('mode2-btn');
-        this.mode3Btn = document.getElementById('mode3-btn');
         this.mode1Content = document.getElementById('mode1');
         this.mode2Content = document.getElementById('mode2');
-        this.mode3Content = document.getElementById('mode3');
         this.daysInput = document.getElementById('days-input');
         this.baseDateInput = document.getElementById('base-date-input');
         this.todayBtn = document.getElementById('today-btn');
         this.directionButtons = document.querySelectorAll('.direction-btn');
-        this.dateInput = document.getElementById('date-input');
         this.startDateInput = document.getElementById('start-date-input');
         this.endDateInput = document.getElementById('end-date-input');
         this.westernDate = document.getElementById('western-date');
         this.japaneseDate = document.getElementById('japanese-date');
-        this.daysResult = document.getElementById('days-result');
-        this.daysResultPrefix = document.getElementById('days-result-prefix');
-        this.targetDateDisplay = document.getElementById('target-date-display');
         this.daysBetweenResult = document.getElementById('days-between-result');
         this.dateRangeDisplay = document.getElementById('date-range-display');
         this.calculationSummary = document.getElementById('calculation-summary');
@@ -36,7 +29,6 @@ class DateCalculator {
     bindEvents() {
         this.mode1Btn.addEventListener('click', () => this.switchMode('mode1'));
         this.mode2Btn.addEventListener('click', () => this.switchMode('mode2'));
-        this.mode3Btn.addEventListener('click', () => this.switchMode('mode3'));
 
         this.daysInput.addEventListener('input', () => this.calculateFutureDate());
         this.baseDateInput.addEventListener('input', () => this.calculateFutureDate());
@@ -47,15 +39,14 @@ class DateCalculator {
         this.directionButtons.forEach((button) => {
             button.addEventListener('click', () => this.setDirection(button.dataset.direction));
         });
-        this.dateInput.addEventListener('input', () => this.calculateDaysToDate());
         this.startDateInput.addEventListener('input', () => this.calculateDaysBetween());
         this.endDateInput.addEventListener('input', () => this.calculateDaysBetween());
         
     }
 
     switchMode(mode) {
-        const tabs = [this.mode1Btn, this.mode2Btn, this.mode3Btn];
-        const panels = [this.mode1Content, this.mode2Content, this.mode3Content];
+        const tabs = [this.mode1Btn, this.mode2Btn];
+        const panels = [this.mode1Content, this.mode2Content];
 
         tabs.forEach((tab, index) => {
             const isActive = tab.id === `${mode}-btn`;
@@ -87,24 +78,6 @@ class DateCalculator {
         this.westernDate.textContent = this.formatWesternDate(resultDate);
         this.japaneseDate.textContent = this.formatJapaneseDate(resultDate);
         this.calculationSummary.textContent = `${this.formatCompactDate(baseDate)} の ${days}日${this.direction === 'after' ? '後' : '前'}`;
-    }
-
-    calculateDaysToDate() {
-        const targetDate = this.parseDateInput(this.dateInput.value);
-        const today = this.startOfDay(new Date());
-
-        if (!targetDate) {
-            this.daysResult.textContent = '-';
-            this.daysResultPrefix.textContent = 'あと';
-            this.targetDateDisplay.textContent = '-';
-            return;
-        }
-
-        const daysDiff = this.differenceInDays(today, targetDate);
-
-        this.daysResultPrefix.textContent = daysDiff < 0 ? '経過' : 'あと';
-        this.daysResult.textContent = Math.abs(daysDiff);
-        this.targetDateDisplay.textContent = this.formatWesternDate(targetDate);
     }
 
     formatWesternDate(date) {
@@ -164,11 +137,6 @@ class DateCalculator {
 
     setTodayAsBaseDate() {
         this.baseDateInput.value = this.formatDateInputValue(new Date());
-    }
-
-    setTodayAsTargetDate() {
-        this.dateInput.value = this.formatDateInputValue(new Date());
-        this.calculateDaysToDate();
     }
 
     setTodayAsDateRange() {

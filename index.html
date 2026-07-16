@@ -15,9 +15,8 @@
             <h1>nannichi</h1>
             <p class="subtitle">知りたい日付を、すぐに計算。</p>
             <div class="mode-switch" role="tablist" aria-label="計算モード">
-                <button id="mode1-btn" class="mode-btn active" role="tab" aria-selected="true" aria-controls="mode1">日付を計算</button>
-                <button id="mode2-btn" class="mode-btn" role="tab" aria-selected="false" aria-controls="mode2">残り日数</button>
-                <button id="mode3-btn" class="mode-btn" role="tab" aria-selected="false" aria-controls="mode3">日数の差</button>
+                <button id="mode1-btn" class="mode-btn active" role="tab" aria-selected="true" aria-controls="mode1">◯日後はいつ？</button>
+                <button id="mode2-btn" class="mode-btn" role="tab" aria-selected="false" aria-controls="mode2">日数の差</button>
             </div>
         </header>
 
@@ -62,33 +61,8 @@
                 </div>
             </div>
 
-            <!-- モード2: 日付入力 → 日数計算 -->
+            <!-- モード2: 日付間の日数計算 -->
             <div id="mode2" class="mode-content" role="tabpanel" aria-labelledby="mode2-btn" hidden>
-                <div class="input-section">
-                    <label for="date-input">いつまで？</label>
-                    <div class="date-control">
-                        <input type="date" id="date-input">
-                    </div>
-                </div>
-                <div class="result-section">
-                    <div class="result-card">
-                        <p class="result-label">計算結果</p>
-                        <div class="days-display">
-                            <div class="days-item" aria-live="polite">
-                                <span id="days-result-prefix" class="label">あと</span>
-                                <span id="days-result" class="days-value">-</span>
-                                <span class="label">日</span>
-                            </div>
-                            <div class="target-date">
-                                <span id="target-date-display" class="target-date-value">-</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- モード3: 日付間の日数計算 -->
-            <div id="mode3" class="mode-content" role="tabpanel" aria-labelledby="mode3-btn" hidden>
                 <div class="input-section date-range">
                     <div class="date-input-group">
                         <label for="start-date-input">開始日</label>

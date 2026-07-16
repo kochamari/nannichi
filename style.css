@@ -80,7 +80,7 @@ h1 {
 
 .mode-switch {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 5px;
     padding: 5px;
     background: #eef2f7;
@@ -337,7 +337,6 @@ input::placeholder {
     text-align: right;
 }
 
-.days-display,
 .days-between-display {
     padding-top: 19px;
 }
@@ -364,7 +363,6 @@ input::placeholder {
     line-height: 1;
 }
 
-.target-date,
 .date-range-display {
     display: flex;
     align-items: center;
@@ -376,7 +374,6 @@ input::placeholder {
     border-radius: 13px;
 }
 
-.target-date-value,
 .date-range-value {
     color: #3d485c;
     font-size: 15px;
