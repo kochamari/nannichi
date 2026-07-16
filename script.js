@@ -4,6 +4,7 @@ class DateCalculator {
         this.initializeElements();
         this.bindEvents();
         this.setTodayAsBaseDate();
+        this.setTodayAsTargetDate();
         this.setTodayAsDateRange();
         this.setActiveMode('mode1');
     }
@@ -25,6 +26,7 @@ class DateCalculator {
         this.westernDate = document.getElementById('western-date');
         this.japaneseDate = document.getElementById('japanese-date');
         this.daysResult = document.getElementById('days-result');
+        this.daysResultPrefix = document.getElementById('days-result-prefix');
         this.targetDateDisplay = document.getElementById('target-date-display');
         this.daysBetweenResult = document.getElementById('days-between-result');
         this.dateRangeDisplay = document.getElementById('date-range-display');
@@ -35,7 +37,7 @@ class DateCalculator {
         this.mode1Btn.addEventListener('click', () => this.switchMode('mode1'));
         this.mode2Btn.addEventListener('click', () => this.switchMode('mode2'));
         this.mode3Btn.addEventListener('click', () => this.switchMode('mode3'));
-        
+
         this.daysInput.addEventListener('input', () => this.calculateFutureDate());
         this.baseDateInput.addEventListener('input', () => this.calculateFutureDate());
         this.todayBtn.addEventListener('click', () => {
@@ -48,12 +50,6 @@ class DateCalculator {
         this.dateInput.addEventListener('input', () => this.calculateDaysToDate());
         this.startDateInput.addEventListener('input', () => this.calculateDaysBetween());
         this.endDateInput.addEventListener('input', () => this.calculateDaysBetween());
-        
-        this.dateInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 4) value = value.slice(0, 4);
-            e.target.value = value;
-        });
         
     }
 
@@ -94,45 +90,20 @@ class DateCalculator {
     }
 
     calculateDaysToDate() {
-        const dateStr = this.dateInput.value;
-        
-        if (dateStr.length !== 4) {
-            this.daysResult.textContent = '-';
-            this.targetDateDisplay.textContent = '-';
-            return;
-        }
-
-        const month = parseInt(dateStr.substring(0, 2));
-        const day = parseInt(dateStr.substring(2, 4));
-
+        const targetDate = this.parseDateInput(this.dateInput.value);
         const today = this.startOfDay(new Date());
-        const currentYear = today.getFullYear();
-        if (month < 1 || month > 12 || day < 1 || day > 31) {
-            this.daysResult.textContent = '-';
-            this.targetDateDisplay.textContent = '-';
-            return;
-        }
-
-        let targetDate = null;
-        for (let year = currentYear; year <= currentYear + 8; year += 1) {
-            if (this.isValidMonthDay(year, month, day)) {
-                const candidate = this.createLocalDate(year, month - 1, day);
-                if (candidate > today) {
-                    targetDate = candidate;
-                    break;
-                }
-            }
-        }
 
         if (!targetDate) {
             this.daysResult.textContent = '-';
+            this.daysResultPrefix.textContent = 'あと';
             this.targetDateDisplay.textContent = '-';
             return;
         }
 
         const daysDiff = this.differenceInDays(today, targetDate);
 
-        this.daysResult.textContent = daysDiff;
+        this.daysResultPrefix.textContent = daysDiff < 0 ? '経過' : 'あと';
+        this.daysResult.textContent = Math.abs(daysDiff);
         this.targetDateDisplay.textContent = this.formatWesternDate(targetDate);
     }
 
@@ -193,6 +164,11 @@ class DateCalculator {
 
     setTodayAsBaseDate() {
         this.baseDateInput.value = this.formatDateInputValue(new Date());
+    }
+
+    setTodayAsTargetDate() {
+        this.dateInput.value = this.formatDateInputValue(new Date());
+        this.calculateDaysToDate();
     }
 
     setTodayAsDateRange() {

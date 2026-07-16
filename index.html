@@ -65,15 +65,17 @@
             <!-- モード2: 日付入力 → 日数計算 -->
             <div id="mode2" class="mode-content" role="tabpanel" aria-labelledby="mode2-btn" hidden>
                 <div class="input-section">
-                    <label for="date-input">日付（MMDD形式）</label>
-                    <input type="text" id="date-input" placeholder="例: 0530, 1225" maxlength="4">
+                    <label for="date-input">いつまで？</label>
+                    <div class="date-control">
+                        <input type="date" id="date-input">
+                    </div>
                 </div>
                 <div class="result-section">
                     <div class="result-card">
                         <p class="result-label">計算結果</p>
                         <div class="days-display">
-                            <div class="days-item">
-                                <span class="label">あと</span>
+                            <div class="days-item" aria-live="polite">
+                                <span id="days-result-prefix" class="label">あと</span>
                                 <span id="days-result" class="days-value">-</span>
                                 <span class="label">日</span>
                             </div>
