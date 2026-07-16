@@ -3,30 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>日付計算アプリ</title>
+    <meta name="theme-color" content="#f4f7fb">
+    <title>nannichi | 日付計算</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><text y=%2252%22 x=%2250%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-size=%2248%22>📅</text></svg>">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>日付計算アプリ</h1>
-            <div class="mode-switch">
-                <button id="mode1-btn" class="mode-btn active">日数から日付</button>
-                <button id="mode2-btn" class="mode-btn">日付から日数</button>
-                <button id="mode3-btn" class="mode-btn">日付間の日数</button>
+            <p class="eyebrow">DATE CALCULATOR</p>
+            <h1>nannichi</h1>
+            <p class="subtitle">知りたい日付を、すぐに計算。</p>
+            <div class="mode-switch" role="tablist" aria-label="計算モード">
+                <button id="mode1-btn" class="mode-btn active" role="tab" aria-selected="true" aria-controls="mode1">日付を計算</button>
+                <button id="mode2-btn" class="mode-btn" role="tab" aria-selected="false" aria-controls="mode2">残り日数</button>
+                <button id="mode3-btn" class="mode-btn" role="tab" aria-selected="false" aria-controls="mode3">日数の差</button>
             </div>
         </header>
 
         <main>
-            <!-- モード1: 日数入力 → 未来の日付表示 -->
-            <div id="mode1" class="mode-content active">
-                <div class="input-section">
-                    <label for="days-input">何日後？</label>
-                    <input type="number" id="days-input" placeholder="例: 30" min="0">
+            <!-- モード1: 基準日 + 日数 → 日付表示 -->
+            <div id="mode1" class="mode-content active" role="tabpanel" aria-labelledby="mode1-btn">
+                <div class="input-section calculation-form">
+                    <div class="field-heading">
+                        <label for="base-date-input">いつから？</label>
+                        <button type="button" id="today-btn" class="text-button">今日に戻す</button>
+                    </div>
+                    <input type="date" id="base-date-input">
+
+                    <fieldset class="offset-fieldset">
+                        <legend>どれくらい？</legend>
+                        <div class="offset-row">
+                            <input type="number" id="days-input" placeholder="例: 30" min="0" inputmode="numeric">
+                            <div class="direction-switch" aria-label="計算の方向">
+                                <button type="button" class="direction-btn active" data-direction="after" aria-pressed="true">日後</button>
+                                <button type="button" class="direction-btn" data-direction="before" aria-pressed="false">日前</button>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
                 <div class="result-section">
                     <div class="result-card">
-                        <h3>計算結果</h3>
+                        <p class="result-label">計算結果</p>
+                        <p id="calculation-summary" class="calculation-summary" aria-live="polite">日数を入力してください</p>
                         <div class="date-display">
                             <div class="date-item">
                                 <span class="label">西暦</span>
@@ -42,14 +61,14 @@
             </div>
 
             <!-- モード2: 日付入力 → 日数計算 -->
-            <div id="mode2" class="mode-content">
+            <div id="mode2" class="mode-content" role="tabpanel" aria-labelledby="mode2-btn" hidden>
                 <div class="input-section">
                     <label for="date-input">日付（MMDD形式）</label>
                     <input type="text" id="date-input" placeholder="例: 0530, 1225" maxlength="4">
                 </div>
                 <div class="result-section">
                     <div class="result-card">
-                        <h3>計算結果</h3>
+                        <p class="result-label">計算結果</p>
                         <div class="days-display">
                             <div class="days-item">
                                 <span class="label">あと</span>
@@ -65,7 +84,7 @@
             </div>
 
             <!-- モード3: 日付間の日数計算 -->
-            <div id="mode3" class="mode-content">
+            <div id="mode3" class="mode-content" role="tabpanel" aria-labelledby="mode3-btn" hidden>
                 <div class="input-section date-range">
                     <div class="date-input-group">
                         <label for="start-date-input">開始日（MMDD形式）</label>
@@ -79,7 +98,7 @@
                 </div>
                 <div class="result-section">
                     <div class="result-card">
-                        <h3>計算結果</h3>
+                        <p class="result-label">計算結果</p>
                         <div class="days-between-display">
                             <div class="days-item">
                                 <span class="label">期間</span>
