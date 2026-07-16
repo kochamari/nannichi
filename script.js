@@ -4,6 +4,7 @@ class DateCalculator {
         this.initializeElements();
         this.bindEvents();
         this.setTodayAsBaseDate();
+        this.setTodayAsDateRange();
         this.setActiveMode('mode1');
     }
 
@@ -54,17 +55,6 @@ class DateCalculator {
             e.target.value = value;
         });
         
-        this.startDateInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 4) value = value.slice(0, 4);
-            e.target.value = value;
-        });
-        
-        this.endDateInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 4) value = value.slice(0, 4);
-            e.target.value = value;
-        });
     }
 
     switchMode(mode) {
@@ -170,37 +160,16 @@ class DateCalculator {
     }
 
     calculateDaysBetween() {
-        const startDateStr = this.startDateInput.value;
-        const endDateStr = this.endDateInput.value;
+        const startDate = this.parseDateInput(this.startDateInput.value);
+        const endDate = this.parseDateInput(this.endDateInput.value);
         
-        if (startDateStr.length !== 4 || endDateStr.length !== 4) {
+        if (!startDate || !endDate) {
             this.daysBetweenResult.textContent = '-';
             this.dateRangeDisplay.textContent = '-';
             return;
         }
 
-        const startMonth = parseInt(startDateStr.substring(0, 2));
-        const startDay = parseInt(startDateStr.substring(2, 4));
-        const endMonth = parseInt(endDateStr.substring(0, 2));
-        const endDay = parseInt(endDateStr.substring(2, 4));
-
-        const currentYear = new Date().getFullYear();
-        if (!this.isValidMonthDay(currentYear, startMonth, startDay) ||
-            !this.isValidMonthDay(currentYear, endMonth, endDay)) {
-            this.daysBetweenResult.textContent = '-';
-            this.dateRangeDisplay.textContent = '-';
-            return;
-        }
-
-        const startDate = this.createLocalDate(currentYear, startMonth - 1, startDay);
-        let endDate = this.createLocalDate(currentYear, endMonth - 1, endDay);
-
-        // 終了日が開始日より前の場合、終了日を翌年にする
-        if (endDate < startDate) {
-            endDate = this.createLocalDate(currentYear + 1, endMonth - 1, endDay);
-        }
-
-        const daysDiff = this.differenceInDays(startDate, endDate);
+        const daysDiff = Math.abs(this.differenceInDays(startDate, endDate));
 
         this.daysBetweenResult.textContent = daysDiff;
         this.dateRangeDisplay.textContent = `${this.formatShortDate(startDate)} ～ ${this.formatShortDate(endDate)}`;
@@ -223,11 +192,14 @@ class DateCalculator {
     }
 
     setTodayAsBaseDate() {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-        this.baseDateInput.value = `${year}-${month}-${day}`;
+        this.baseDateInput.value = this.formatDateInputValue(new Date());
+    }
+
+    setTodayAsDateRange() {
+        const today = this.formatDateInputValue(new Date());
+        this.startDateInput.value = today;
+        this.endDateInput.value = today;
+        this.calculateDaysBetween();
     }
 
     parseDateInput(value) {
@@ -264,6 +236,13 @@ class DateCalculator {
 
     formatCompactDate(date) {
         return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+    }
+
+    formatDateInputValue(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     }
 }
 
