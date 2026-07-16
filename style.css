@@ -188,21 +188,56 @@ input::placeholder {
     color: #9ba5b6;
 }
 
-/* iOS Safariで日付の値が中央寄せになることがあるため左寄せを明示 */
-input[type="date"] {
+/* iOS Safariのネイティブdate入力は固有幅が外側へはみ出すため、枠はラッパー側に持たせる */
+.date-control {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 56px;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid #cfd7e4;
+    border-radius: 13px;
+    transition: 160ms ease;
+}
+
+.date-control:hover {
+    border-color: #aeb9cb;
+}
+
+.date-control:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(49, 87, 213, 0.11);
+}
+
+.date-control input[type="date"] {
     display: block;
-    inline-size: 100%;
-    max-inline-size: 100%;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 54px;
+    padding: 13px 16px;
+    overflow: hidden;
+    color: var(--ink);
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
     text-align: left;
 }
 
-input[type="date"]::-webkit-date-and-time-value {
+.date-control input[type="date"]:focus {
+    border: 0;
+    box-shadow: none;
+}
+
+.date-control input[type="date"]::-webkit-date-and-time-value {
     min-height: 1.35em;
     margin: 0;
     text-align: left;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+.date-control input[type="date"]::-webkit-calendar-picker-indicator {
     margin: 0;
     padding: 4px;
 }
@@ -362,9 +397,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     max-width: 100%;
 }
 
-.date-input-group input {
-    width: 100%;
-    max-width: 100%;
+.date-input-group .date-control input {
     font-size: 16px;
 }
 
@@ -407,7 +440,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         font-size: 15px;
     }
 
-    input[type="date"] {
+    .date-control input[type="date"] {
         padding-right: 12px;
     }
 }
